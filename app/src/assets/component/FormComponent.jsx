@@ -8,7 +8,12 @@ function FormComponent() {
     recordar: "true"
   })
 
-  const [lista, setLista] = useState([{usuario: "Cecilia Perdomo", correo: "cecilia.perdomo@gmail.com", password: "1234", recordar: "true"}])
+  const [lista, setLista] = useState([{
+    usuario: "Cecilia Perdomo",
+    correo: "cecilia.perdomo@gmail.com",
+    password: "1234",
+    recordar: "true"
+  }])
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -26,12 +31,20 @@ function FormComponent() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes manejar la lógica de envío del formulario, por ejemplo, enviar los datos a un servidor.
-    console.log('Datos enviados:', formData);
     setLista([...lista, formData])
   };
 
+  const eliminar = (id) => {
+    let aux = []
 
+    aux = lista.filter((item, index) => {
+      if (index !== id) {
+        return item
+      }
+    })
+
+    setLista(aux)
+  }
 
   return (
     <div>
@@ -103,7 +116,7 @@ function FormComponent() {
                 <td className='align-middle'>{item.correo}</td>
                 <td className='align-middle'>{item.password}</td>
                 <td className='align-middle'>{item.recordar}</td>
-                <td className='align-middle bg-danger'><i className='fa fa-trash'></i></td>
+                <td className='align-middle'><i className='fa fa-trash btn btn-outline-danger' onClick={() => eliminar(id)}></i></td>
               </tr>
             ))}
 
